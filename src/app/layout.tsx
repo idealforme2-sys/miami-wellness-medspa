@@ -67,7 +67,6 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${displayFont.variable} ${bodyFont.variable} antialiased`}
-        style={{ background: "#07070b", color: "#f0ece4" }}
       >
         {gtmId ? (
           <noscript>

@@ -77,7 +77,7 @@ export function HomePage({ content }: HomePageProps) {
         <CuratedOfferingsSection />
         <TreatmentsSection categories={sortedCategories} services={sortedServices} />
         <StatsCounter stats={content.stats} bullets={content.whyChooseUsBullets} />
-        <ResultsGallery items={content.galleryItems} />
+        <ResultsGallery />
         <TestimonialsSection
           testimonials={content.testimonials}
           googleReviewsUrl={content.siteSettings.googleReviewsUrl}

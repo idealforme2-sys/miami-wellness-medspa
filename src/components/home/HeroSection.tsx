@@ -85,7 +85,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
             {/* Content */}
             <div
                 className="relative z-10 flex min-h-screen flex-col justify-end section-shell"
-                style={{ paddingBottom: "clamp(4rem, 8vh, 7rem)", paddingTop: "6rem" }}
+                style={{ paddingBottom: "clamp(3rem, 6vh, 5rem)", paddingTop: "5rem" }}
             >
                 <div className="max-w-3xl">
                     {/* Eyebrow */}
@@ -95,9 +95,9 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
 
                     {/* Heading — large cinematic */}
                     <h1
-                        className="font-display font-light leading-[1.02] tracking-tight"
+                        className="font-display font-light leading-[1.05] tracking-tight"
                         style={{
-                            fontSize: "clamp(3.5rem, 8vw, 7rem)",
+                            fontSize: "clamp(2.75rem, 5.5vw, 5rem)",
                             color: "var(--text-primary)",
                         }}
                     >

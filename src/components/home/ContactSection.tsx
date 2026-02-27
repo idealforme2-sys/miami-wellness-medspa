@@ -146,23 +146,46 @@ export function ContactSection({ settings }: ContactSectionProps) {
                     </div>
 
                     {/* Right: Map */}
-                    <div
-                        data-contact-reveal
-                        className="overflow-hidden rounded-3xl"
-                        style={{
-                            border: "1px solid rgba(201,169,110,0.1)",
-                            minHeight: "480px",
-                        }}
-                    >
-                        <iframe
-                            title="Miami Wellness Medspa map"
-                            src={settings.mapEmbedUrl}
-                            width="100%"
-                            height="100%"
-                            loading="lazy"
-                            className="min-h-[480px] w-full border-0"
-                            style={{ filter: "invert(0.9) hue-rotate(180deg) brightness(0.9)" }}
-                        />
+                    <div data-contact-reveal className="flex flex-col gap-5">
+                        {/* Compact map embed */}
+                        <div
+                            className="overflow-hidden rounded-3xl"
+                            style={{ border: "1px solid rgba(201,169,110,0.1)", height: "260px" }}
+                        >
+                            <iframe
+                                title="Miami Wellness Medspa map"
+                                src={settings.mapEmbedUrl}
+                                width="100%"
+                                height="260"
+                                loading="lazy"
+                                className="block w-full border-0"
+                                style={{ filter: "invert(0.9) hue-rotate(180deg) brightness(0.9)", height: "260px" }}
+                            />
+                        </div>
+                        {/* Directions card */}
+                        <a
+                            href={settings.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="glass-card group flex items-center gap-4 rounded-2xl p-5 transition-colors"
+                        >
+                            <div
+                                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+                                style={{ background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.2)" }}
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--gold-400)" }}>
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--gold-400)" }}>Get Directions</p>
+                                <p className="mt-0.5 text-sm" style={{ color: "var(--text-secondary)" }}>{settings.fullAddress}</p>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-auto shrink-0 transition-transform group-hover:translate-x-1" style={{ color: "var(--text-muted)" }}>
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
