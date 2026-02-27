@@ -1,0 +1,389 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+   LUXURY DARK DESIGN SYSTEM
+   Miami Wellness Medspa — Premium Aesthetic
+   ────────────────────────────────────────────── */
+
+:root {
+  /* Core Dark Palette */
+  --bg-primary: #07070b;
+  --bg-secondary: #0d0d14;
+  --bg-tertiary: #13131d;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+
+  /* Gold Palette */
+  --gold-50: #fdf8ef;
+  --gold-100: #f5e6c8;
+  --gold-200: #e8d09e;
+  --gold-300: #d4af37;
+  --gold-400: #c9a96e;
+  --gold-500: #b8944a;
+  --gold-600: #9a7a3c;
+  --gold-700: #7a6030;
+
+  /* Text */
+  --text-primary: #f0ece4;
+  --text-secondary: #9a9aad;
+  --text-muted: #5a5a6e;
+  --text-gold: #c9a96e;
+
+  /* Glass */
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-gold: rgba(201, 169, 110, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-bg-hover: rgba(255, 255, 255, 0.05);
+
+  /* Spacing */
+  --section-padding: clamp(4rem, 8vw, 8rem);
+  --container-max: 1380px;
+}
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-gold-50: var(--gold-50);
+  --color-gold-100: var(--gold-100);
+  --color-gold-200: var(--gold-200);
+  --color-gold-300: var(--gold-300);
+  --color-gold-400: var(--gold-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-600: var(--gold-600);
+  --color-gold-700: var(--gold-700);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-gold: var(--text-gold);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 110, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 169, 110, 0.5);
+}
+
+/* ── Global Reset ── */
+* {
+  border-color: var(--glass-border);
+  cursor: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body), "Inter", "Segoe UI", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: inherit; cursor: none; }
+button { cursor: none; }
+
+/* ── Selection ── */
+::selection {
+  background: rgba(201, 169, 110, 0.25);
+  color: var(--gold-100);
+}
+
+/* ── Glass Card ── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-gold);
+  box-shadow: 0 8px 40px rgba(201, 169, 110, 0.06);
+}
+
+/* ── Glass Card Gold ── */
+.glass-card-gold {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border-gold);
+  box-shadow:
+    0 0 0 1px rgba(201, 169, 110, 0.05),
+    0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Text Gradient ── */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #c9a96e 40%, #f5e6c8 70%, #d4af37 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-text 6s ease-in-out infinite;
+}
+
+/* ── Gold Glow Button ── */
+.btn-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #c9a96e, #d4af37);
+  color: #07070b;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+}
+.btn-gold::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #d4af37, #f5e6c8, #d4af37);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(201, 169, 110, 0.35);
+}
+.btn-gold:hover::before {
+  opacity: 1;
+}
+
+/* ── Outline Button ── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: var(--gold-400);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  border: 1px solid var(--glass-border-gold);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.btn-outline:hover {
+  background: rgba(201, 169, 110, 0.08);
+  border-color: var(--gold-400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.12);
+}
+
+/* ── Section Shell ── */
+.section-shell {
+  position: relative;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+}
+
+/* ── Eyebrow Label ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+.eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-400), transparent);
+}
+
+/* ── Section Heading ── */
+.section-title {
+  font-family: var(--font-display), "Playfair Display", serif;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.section-subtitle {
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 36rem;
+}
+
+/* ── Divider ── */
+.divider-gold {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-400), transparent);
+}
+
+/* ── Anchor offset ── */
+.anchor-offset {
+  scroll-margin-top: 6rem;
+}
+
+/* ══════════════════════════════════════
+            KEYFRAMES
+   ══════════════════════════════════════ */
+
+@keyframes shimmer-text {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(1deg); }
+  66% { transform: translateY(8px) rotate(-1deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.05); }
+  50% { transform: translate(-15px, 15px) scale(0.97); }
+  75% { transform: translate(20px, 10px) scale(1.02); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes preloader-reveal {
+  0% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 0% 0); }
+}
+
+@keyframes preloader-exit {
+  0% { clip-path: inset(0 0 0% 0); opacity: 1; }
+  100% { clip-path: inset(100% 0 0% 0); opacity: 0; }
+}
+
+@keyframes line-grow {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ── Gradient Orbs ── */
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+.gradient-orb-gold {
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.15) 0%, transparent 70%);
+  animation: float-slow 20s ease-in-out infinite;
+}
+.gradient-orb-blue {
+  background: radial-gradient(circle, rgba(70, 90, 160, 0.1) 0%, transparent 70%);
+  animation: float-slow 25s ease-in-out infinite reverse;
+}
+
+/* ── Custom Cursor ── */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--gold-300);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background 0.3s;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+}
+.cursor-hover .cursor-dot {
+  width: 0px;
+  height: 0px;
+}
+.cursor-hover .cursor-ring {
+  width: 60px;
+  height: 60px;
+  background: rgba(201, 169, 110, 0.06);
+  border-color: rgba(201, 169, 110, 0.6);
+}
+
+/* ── Marquee ── */
+.marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Star Rating ── */
+.star-gold {
+  color: var(--gold-300);
+}
+
+/* ── Mobile: restore default cursor ── */
+@media (hover: none) and (pointer: coarse) {
+  * { cursor: auto !important; }
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+
+@media (max-width: 768px) {
+  .anchor-offset {
+    scroll-margin-top: 5rem;
+  }
+}
