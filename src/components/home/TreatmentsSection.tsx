@@ -79,7 +79,7 @@ export function TreatmentsSection({ categories, services }: TreatmentsSectionPro
     return (
         <section
             ref={sectionRef}
-            id="treatments"
+            id="services"
             className="anchor-offset relative"
             style={{ padding: "var(--section-padding) 0" }}
         >

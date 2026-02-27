@@ -5,21 +5,21 @@ import gsap from "gsap";
 import { HeroBlock, SiteSettings } from "@/types/site";
 import { trackBookingStart, trackCallClick, trackCtaClick } from "@/lib/analytics";
 
+// High-quality Unsplash medspa treatment image
+const HERO_IMAGE = "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=85&w=2940&auto=format&fit=crop";
+
 interface HeroSectionProps {
     hero: HeroBlock;
     settings: SiteSettings;
 }
 
 function SplitWords({ text, dataAttr }: { text: string; dataAttr: string }) {
-    const words = text.split(" ");
     return (
         <>
-            {words.map((word, i) => (
+            {text.split(" ").map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden">
-                    <span className="inline-block" data-split={dataAttr}>
-                        {word}
-                    </span>
-                    {i < words.length - 1 && "\u00A0"}
+                    <span className="inline-block" data-split={dataAttr}>{word}</span>
+                    {i < text.split(" ").length - 1 && "\u00A0"}
                 </span>
             ))}
         </>
@@ -34,66 +34,14 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
         if (!el) return;
 
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline({
-                defaults: { ease: "power3.out" },
-                delay: 2.2,
-            });
-
-            tl.from("[data-hero-anim='eyebrow']", {
-                opacity: 0,
-                y: 20,
-                duration: 0.7,
-            })
-                .from(
-                    "[data-split='heading']",
-                    {
-                        opacity: 0,
-                        y: 60,
-                        rotateX: 10,
-                        stagger: 0.06,
-                        duration: 0.9,
-                    },
-                    "-=0.3"
-                )
-                .from(
-                    "[data-hero-anim='subtitle']",
-                    {
-                        opacity: 0,
-                        y: 30,
-                        duration: 0.7,
-                    },
-                    "-=0.4"
-                )
-                .from(
-                    "[data-hero-anim='actions']",
-                    {
-                        opacity: 0,
-                        y: 20,
-                        duration: 0.6,
-                    },
-                    "-=0.3"
-                )
-                .from(
-                    "[data-hero-anim='card']",
-                    {
-                        opacity: 0,
-                        scale: 0.95,
-                        y: 30,
-                        duration: 0.8,
-                    },
-                    "-=0.4"
-                )
-                .from(
-                    "[data-hero-anim='orb']",
-                    {
-                        opacity: 0,
-                        scale: 0.5,
-                        stagger: 0.15,
-                        duration: 1.5,
-                        ease: "power2.out",
-                    },
-                    "-=1.2"
-                );
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 2.0 });
+            tl
+                .from("[data-hero-anim='eyebrow']", { opacity: 0, y: 24, duration: 0.7 })
+                .from("[data-split='heading']", { opacity: 0, y: 70, rotateX: 8, stagger: 0.055, duration: 1.0 }, "-=0.3")
+                .from("[data-hero-anim='subtitle']", { opacity: 0, y: 30, duration: 0.7 }, "-=0.4")
+                .from("[data-hero-anim='actions']", { opacity: 0, y: 20, duration: 0.6 }, "-=0.3")
+                .from("[data-hero-anim='badge']", { opacity: 0, scale: 0.9, y: 20, duration: 0.7 }, "-=0.4")
+                .from("[data-hero-anim='scroll']", { opacity: 0, duration: 0.6 }, "-=0.2");
         }, el);
 
         return () => ctx.revert();
@@ -104,144 +52,147 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
             ref={sectionRef}
             id="top"
             className="relative min-h-screen overflow-hidden"
-            style={{ paddingTop: "clamp(7rem, 15vh, 10rem)", paddingBottom: "clamp(4rem, 8vh, 6rem)" }}
+            style={{ minHeight: "100svh" }}
         >
-            {/* Background gradient orbs */}
+            {/* Full-bleed background image */}
             <div
-                data-hero-anim="orb"
-                className="gradient-orb gradient-orb-gold absolute -left-32 top-20 h-[500px] w-[500px]"
-            />
-            <div
-                data-hero-anim="orb"
-                className="gradient-orb gradient-orb-blue absolute -right-40 top-[30%] h-[450px] w-[450px]"
-            />
-            <div
-                data-hero-anim="orb"
-                className="gradient-orb gradient-orb-gold absolute bottom-10 right-1/4 h-[300px] w-[300px] opacity-40"
-            />
-
-            {/* Grid pattern overlay */}
-            <div
-                className="pointer-events-none absolute inset-0"
+                className="absolute inset-0 z-0"
                 style={{
-                    backgroundImage:
-                        "linear-gradient(rgba(201,169,110,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,169,110,0.03) 1px, transparent 1px)",
-                    backgroundSize: "80px 80px",
+                    backgroundImage: `url(${HERO_IMAGE})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center 30%",
+                    filter: "brightness(0.45)",
+                    transform: "scale(1.05)",
+                    willChange: "transform",
                 }}
             />
 
-            <div className="section-shell relative z-10">
-                <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-                    {/* Left: Hero content */}
-                    <div className="flex flex-col justify-center">
-                        <div data-hero-anim="eyebrow" className="eyebrow mb-8">
-                            {hero.eyebrow}
-                        </div>
+            {/* Multi-layer dark gradient overlay */}
+            <div
+                className="absolute inset-0 z-[1]"
+                style={{
+                    background:
+                        "linear-gradient(to right, rgba(7,7,11,0.75) 0%, rgba(7,7,11,0.2) 60%, rgba(7,7,11,0.1) 100%), " +
+                        "linear-gradient(to top, rgba(7,7,11,0.9) 0%, rgba(7,7,11,0.1) 50%, transparent 100%)",
+                }}
+            />
 
-                        <h1
-                            className="font-display text-[clamp(2.8rem,6vw,5.5rem)] font-light leading-[1.05] tracking-tight"
-                            style={{ color: "var(--text-primary)" }}
-                        >
-                            <SplitWords text={hero.heading} dataAttr="heading" />
-                        </h1>
+            {/* Subtle gold glow behind text */}
+            <div
+                className="gradient-orb gradient-orb-gold absolute -left-48 top-1/4 z-[1] h-[600px] w-[600px] opacity-20"
+            />
 
-                        <p
-                            data-hero-anim="subtitle"
-                            className="mt-6 max-w-xl text-base leading-relaxed md:text-lg"
-                            style={{ color: "var(--text-secondary)" }}
-                        >
-                            {hero.subheading}
-                        </p>
-
-                        <div data-hero-anim="actions" className="mt-10 flex flex-wrap items-center gap-4">
-                            <a
-                                href={hero.primaryCtaHref}
-                                className="btn-gold"
-                                onClick={() => {
-                                    trackCtaClick({ location: "hero_primary", ctaType: "booking", serviceContext: "consultation" });
-                                    trackBookingStart({ entryPoint: "hero_primary", serviceContext: "consultation" });
-                                }}
-                            >
-                                {hero.primaryCtaLabel}
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                            <a
-                                href={hero.secondaryCtaHref}
-                                className="btn-outline"
-                                onClick={() => {
-                                    trackCtaClick({ location: "hero_secondary", ctaType: "call", serviceContext: "general" });
-                                    trackCallClick("hero_secondary");
-                                }}
-                            >
-                                {hero.secondaryCtaLabel}
-                            </a>
-                        </div>
-
-                        <p
-                            data-hero-anim="subtitle"
-                            className="mt-6 text-xs tracking-wide"
-                            style={{ color: "var(--text-muted)" }}
-                        >
-                            {settings.disclaimer}
-                        </p>
+            {/* Content */}
+            <div
+                className="relative z-10 flex min-h-screen flex-col justify-end section-shell"
+                style={{ paddingBottom: "clamp(4rem, 8vh, 7rem)", paddingTop: "6rem" }}
+            >
+                <div className="max-w-3xl">
+                    {/* Eyebrow */}
+                    <div data-hero-anim="eyebrow" className="eyebrow mb-8" style={{ color: "var(--gold-300)" }}>
+                        {hero.eyebrow}
                     </div>
 
-                    {/* Right: Info Card */}
-                    <div className="flex items-center">
-                        <div
-                            data-hero-anim="card"
-                            className="glass-card-gold w-full rounded-3xl p-8 md:p-10"
+                    {/* Heading — large cinematic */}
+                    <h1
+                        className="font-display font-light leading-[1.02] tracking-tight"
+                        style={{
+                            fontSize: "clamp(3.5rem, 8vw, 7rem)",
+                            color: "var(--text-primary)",
+                        }}
+                    >
+                        <SplitWords text={hero.heading} dataAttr="heading" />
+                    </h1>
+
+                    {/* Subtitle */}
+                    <p
+                        data-hero-anim="subtitle"
+                        className="mt-6 max-w-xl leading-relaxed"
+                        style={{ fontSize: "clamp(1rem, 1.4vw, 1.15rem)", color: "rgba(240,236,228,0.75)" }}
+                    >
+                        {hero.subheading}
+                    </p>
+
+                    {/* Actions */}
+                    <div data-hero-anim="actions" className="mt-10 flex flex-wrap items-center gap-4">
+                        <a
+                            href={hero.primaryCtaHref}
+                            className="btn-gold"
+                            style={{ boxShadow: "0 0 40px rgba(201,169,110,0.25)" }}
+                            onClick={() => {
+                                trackCtaClick({ location: "hero_primary", ctaType: "booking", serviceContext: "consultation" });
+                                trackBookingStart({ entryPoint: "hero_primary", serviceContext: "consultation" });
+                            }}
                         >
-                            <p className="eyebrow mb-6" style={{ fontSize: "0.6rem" }}>
-                                Trusted Local Destination
-                            </p>
-                            <p className="text-gradient-gold font-display text-3xl font-light md:text-4xl">
-                                {settings.siteName}
-                            </p>
-                            <p className="mt-4 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                                {settings.brandTagline}
-                            </p>
-
-                            <div className="divider-gold mt-6" />
-
-                            <dl className="mt-6 space-y-5 text-sm" style={{ color: "var(--text-secondary)" }}>
-                                <div>
-                                    <dt className="font-semibold" style={{ color: "var(--text-primary)" }}>
-                                        Location
-                                    </dt>
-                                    <dd className="mt-1">
-                                        <a
-                                            href={settings.mapUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="transition-colors hover:text-gold-400"
-                                        >
-                                            {settings.fullAddress}
-                                        </a>
-                                    </dd>
-                                </div>
-                                <div>
-                                    <dt className="font-semibold" style={{ color: "var(--text-primary)" }}>
-                                        Phone
-                                    </dt>
-                                    <dd className="mt-1">
-                                        <a
-                                            href={settings.phoneHref}
-                                            className="transition-colors hover:text-gold-400"
-                                            onClick={() => {
-                                                trackCtaClick({ location: "hero_info_phone", ctaType: "call", serviceContext: "general" });
-                                                trackCallClick("hero_info_phone");
-                                            }}
-                                        >
-                                            {settings.phoneDisplay}
-                                        </a>
-                                    </dd>
-                                </div>
-                            </dl>
-                        </div>
+                            {hero.primaryCtaLabel}
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <a
+                            href={hero.secondaryCtaHref}
+                            className="btn-outline"
+                            style={{ borderColor: "rgba(240,236,228,0.3)", color: "var(--text-primary)" }}
+                            onClick={() => {
+                                trackCtaClick({ location: "hero_secondary", ctaType: "call", serviceContext: "general" });
+                                trackCallClick("hero_secondary");
+                            }}
+                        >
+                            {hero.secondaryCtaLabel}
+                        </a>
                     </div>
+
+                    <p
+                        data-hero-anim="subtitle"
+                        className="mt-5 text-xs tracking-wide"
+                        style={{ color: "rgba(240,236,228,0.35)" }}
+                    >
+                        {settings.disclaimer}
+                    </p>
+                </div>
+
+                {/* Floating badge — bottom right */}
+                <div
+                    data-hero-anim="badge"
+                    className="absolute bottom-[clamp(4rem,8vh,7rem)] right-6 md:right-10"
+                >
+                    <div
+                        className="rounded-2xl p-5 text-right"
+                        style={{
+                            background: "rgba(7,7,11,0.7)",
+                            backdropFilter: "blur(20px)",
+                            border: "1px solid rgba(201,169,110,0.15)",
+                            minWidth: "180px",
+                        }}
+                    >
+                        <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em]" style={{ color: "var(--gold-400)" }}>
+                            Miami&rsquo;s Premier
+                        </p>
+                        <p className="mt-1 font-display text-lg font-light" style={{ color: "var(--text-primary)" }}>
+                            Med Spa
+                        </p>
+                        <div className="mt-2" style={{ width: "40px", height: "1px", background: "var(--gold-400)", marginLeft: "auto" }} />
+                        <p className="mt-2 text-xs" style={{ color: "var(--text-muted)" }}>
+                            {settings.cityStateZip}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Scroll indicator */}
+                <div
+                    data-hero-anim="scroll"
+                    className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+                >
+                    <span className="text-[0.55rem] font-semibold uppercase tracking-[0.2em]" style={{ color: "rgba(201,169,110,0.5)" }}>
+                        Scroll
+                    </span>
+                    <div
+                        className="h-10 w-[1px]"
+                        style={{
+                            background: "linear-gradient(to bottom, rgba(201,169,110,0.5), transparent)",
+                            animation: "fade-up 2s ease-in-out infinite alternate",
+                        }}
+                    />
                 </div>
             </div>
         </section>
