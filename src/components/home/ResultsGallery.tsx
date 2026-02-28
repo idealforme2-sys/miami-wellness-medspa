@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Real before/after image pairs from Unsplash — all aesthetic/facial treatment related
 const galleryItems = [
     {
         title: "Jawline Refinement",
@@ -60,14 +59,28 @@ export function ResultsGallery() {
         if (!el) return;
 
         const ctx = gsap.context(() => {
-            gsap.from("[data-gallery-head]", {
-                opacity: 0, y: 50, duration: 0.9, ease: "power3.out",
-                scrollTrigger: { trigger: el, start: "top 80%", once: true },
-            });
-            gsap.from("[data-gallery-card]", {
-                opacity: 0, y: 40, scale: 0.96, stagger: 0.1, duration: 0.7, ease: "power3.out",
-                scrollTrigger: { trigger: "[data-gallery-card]", start: "top 85%", once: true },
-            });
+            gsap.fromTo("[data-gallery-head]",
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.9,
+                    ease: "power3.out",
+                    scrollTrigger: { trigger: el, start: "top 80%", once: true },
+                }
+            );
+            gsap.fromTo("[data-gallery-card]",
+                { opacity: 0, y: 40, scale: 0.96 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    stagger: 0.1,
+                    duration: 0.7,
+                    ease: "power3.out",
+                    scrollTrigger: { trigger: el, start: "top 85%", once: true },
+                }
+            );
         }, el);
 
         return () => ctx.revert();
@@ -86,8 +99,7 @@ export function ResultsGallery() {
                 <div data-gallery-head className="mb-14 text-center">
                     <p className="eyebrow mb-4 justify-center">Before &amp; After</p>
                     <h2 className="section-title">
-                        Real Results,{" "}
-                        <span className="text-gradient-gold">Real Confidence</span>
+                        Real Results, <span className="text-gradient-gold">Real Confidence</span>
                     </h2>
                     <p className="section-subtitle mx-auto mt-4 text-center">
                         Client-consented outcomes showcasing the quality and precision of our treatments.
@@ -102,15 +114,15 @@ export function ResultsGallery() {
                             data-gallery-card
                             className="glass-card group overflow-hidden rounded-3xl"
                         >
-                            {/* Image row */}
                             <div className="grid grid-cols-2">
                                 <div className="relative overflow-hidden">
                                     <div
                                         className="h-48 w-full transition-transform duration-700 group-hover:scale-105"
                                         style={{
-                                            backgroundImage: `url(${item.before})`,
-                                            backgroundSize: "cover",
-                                            backgroundPosition: "center top",
+                                            backgroundImage: `url(${item.before}), url('/before-placeholder.svg')`,
+                                            backgroundSize: "cover, cover",
+                                            backgroundPosition: "center top, center",
+                                            backgroundColor: "#1b1b28",
                                             filter: "brightness(0.75) saturate(0.8)",
                                         }}
                                     />
@@ -125,9 +137,10 @@ export function ResultsGallery() {
                                     <div
                                         className="h-48 w-full transition-transform duration-700 group-hover:scale-105"
                                         style={{
-                                            backgroundImage: `url(${item.after})`,
-                                            backgroundSize: "cover",
-                                            backgroundPosition: "center top",
+                                            backgroundImage: `url(${item.after}), url('/after-placeholder.svg')`,
+                                            backgroundSize: "cover, cover",
+                                            backgroundPosition: "center top, center",
+                                            backgroundColor: "#211b14",
                                             filter: "brightness(0.85)",
                                         }}
                                     />
@@ -140,7 +153,6 @@ export function ResultsGallery() {
                                 </div>
                             </div>
 
-                            {/* Info */}
                             <div className="p-5">
                                 <div className="flex items-start justify-between gap-2">
                                     <h3
@@ -161,7 +173,7 @@ export function ResultsGallery() {
                                     </span>
                                 </div>
                                 <p className="mt-2 text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                                    ✦ {item.result}
+                                    * {item.result}
                                 </p>
                             </div>
                         </div>

@@ -82,10 +82,9 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
                 className="gradient-orb gradient-orb-gold absolute -left-48 top-1/4 z-[1] h-[600px] w-[600px] opacity-20"
             />
 
-            {/* Content */}
             <div
                 className="relative z-10 flex min-h-screen flex-col justify-end section-shell"
-                style={{ paddingBottom: "clamp(3rem, 6vh, 5rem)", paddingTop: "5rem" }}
+                style={{ paddingBottom: "clamp(3rem, 6vh, 5rem)", paddingTop: "8.5rem" }}
             >
                 <div className="max-w-3xl">
                     {/* Eyebrow */}
@@ -157,22 +156,21 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
                     className="absolute bottom-[clamp(4rem,8vh,7rem)] right-6 md:right-10"
                 >
                     <div
-                        className="rounded-2xl p-5 text-right"
+                        className="rounded-2xl p-4 md:p-5 text-right w-[140px] md:w-auto md:min-w-[180px]"
                         style={{
                             background: "rgba(7,7,11,0.7)",
                             backdropFilter: "blur(20px)",
                             border: "1px solid rgba(201,169,110,0.15)",
-                            minWidth: "180px",
                         }}
                     >
-                        <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em]" style={{ color: "var(--gold-400)" }}>
+                        <p className="text-[0.5rem] md:text-[0.6rem] font-semibold uppercase tracking-[0.2em]" style={{ color: "var(--gold-400)" }}>
                             Miami&rsquo;s Premier
                         </p>
-                        <p className="mt-1 font-display text-lg font-light" style={{ color: "var(--text-primary)" }}>
+                        <p className="mt-1 font-display text-base md:text-lg font-light" style={{ color: "var(--text-primary)" }}>
                             Med Spa
                         </p>
-                        <div className="mt-2" style={{ width: "40px", height: "1px", background: "var(--gold-400)", marginLeft: "auto" }} />
-                        <p className="mt-2 text-xs" style={{ color: "var(--text-muted)" }}>
+                        <div className="mt-2" style={{ width: "30px", height: "1px", background: "var(--gold-400)", marginLeft: "auto" }} />
+                        <p className="mt-2 text-[0.6rem] md:text-xs" style={{ color: "var(--text-muted)" }}>
                             {settings.cityStateZip}
                         </p>
                     </div>
