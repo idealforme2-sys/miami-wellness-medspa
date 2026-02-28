@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Announcement, SiteSettings } from "@/types/site";
 import { trackBookingStart, trackCallClick, trackCtaClick } from "@/lib/analytics";
+import { MusicPlayer } from "./MusicPlayer";
 
 const sectionLinks = [
     { label: "Treatments", href: "#treatments" },
@@ -100,17 +101,20 @@ export function Navbar({ settings, announcement }: NavbarProps) {
             </div>
 
             <div className="mx-auto flex max-w-[1380px] items-center justify-between px-6 py-5 md:px-10">
-                {/* Logo */}
-                <a href="#top" className="group shrink-0" aria-label="Miami Wellness Medspa home">
-                    <p className="font-display text-xl font-light tracking-wide transition-colors"
-                        style={{ color: "var(--text-primary)" }}>
-                        Miami Wellness
-                    </p>
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.3em]"
-                        style={{ color: "var(--gold-400)" }}>
-                        Medspa
-                    </p>
-                </a>
+                {/* Logo & Music Player */}
+                <div className="flex shrink-0 items-center gap-3">
+                    <a href="#top" className="group" aria-label="Miami Wellness Medspa home">
+                        <p className="font-display text-xl font-light tracking-wide transition-colors"
+                            style={{ color: "var(--text-primary)" }}>
+                            Miami Wellness
+                        </p>
+                        <p className="text-[9px] font-semibold uppercase tracking-[0.3em]"
+                            style={{ color: "var(--gold-400)" }}>
+                            Medspa
+                        </p>
+                    </a>
+                    <MusicPlayer />
+                </div>
 
                 {/* Desktop Nav — centered */}
                 <nav className="hidden items-center gap-8 lg:flex">

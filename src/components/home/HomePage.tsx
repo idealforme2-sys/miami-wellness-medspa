@@ -16,7 +16,6 @@ import { FAQSection } from "./FAQSection";
 import { ContactSection } from "./ContactSection";
 import { Footer } from "./Footer";
 import { NewsletterOverlay } from "./NewsletterOverlay";
-import { MusicPlayer } from "./MusicPlayer";
 import { SiteContent } from "@/types/site";
 
 interface HomePageProps {
@@ -43,7 +42,6 @@ export function HomePage({ content }: HomePageProps) {
     <>
       <CustomCursor />
       <Preloader />
-      <MusicPlayer />
       <Navbar settings={content.siteSettings} announcement={announcements[0]} />
 
       <main className="relative overflow-x-clip">
