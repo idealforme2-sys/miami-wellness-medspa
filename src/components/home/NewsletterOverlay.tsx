@@ -124,9 +124,6 @@ export function NewsletterOverlay() {
                         <p className="mt-5 max-w-xl text-base leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                             Exclusive treatment drops, limited-time bundles, and wellness tips from our Miami team.
                         </p>
-                        <p className="mt-4 text-xs uppercase tracking-[0.14em]" style={{ color: "var(--gold-300)" }}>
-                            Slow reveal popup - closes anytime
-                        </p>
                     </div>
 
                     <div
