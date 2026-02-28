@@ -10,43 +10,37 @@ const galleryItems = [
     {
         title: "Jawline Refinement",
         treatmentType: "Dermal Fillers",
-        before: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=800&auto=format&fit=crop",
-        after: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800&auto=format&fit=crop",
+        image: "/images/results/Jawline Refinement.png",
         result: "Defined contour, balanced profile",
     },
     {
         title: "Skin Rejuvenation",
         treatmentType: "Microneedling + PRP",
-        before: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop",
-        after: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800&auto=format&fit=crop",
+        image: "/images/results/Skin Rejuvenation.png",
         result: "Smoother texture, reduced pigmentation",
     },
     {
         title: "Forehead Lines",
         treatmentType: "Neuromodulators",
-        before: "https://images.unsplash.com/photo-1508215885820-4585e56135c8?q=80&w=800&auto=format&fit=crop",
-        after: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=800&auto=format&fit=crop",
+        image: "/images/results/Forehead Lines.png",
         result: "Natural smoothing, expression preserved",
     },
     {
         title: "HydraFacial Glow",
         treatmentType: "Medical Facial",
-        before: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=800&auto=format&fit=crop",
-        after: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=800&auto=format&fit=crop",
+        image: "/images/results/HydraFacial Glow.png",
         result: "Immediate radiance, clear pores",
     },
     {
         title: "Body Contouring",
         treatmentType: "EmSculpt NEO",
-        before: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop",
-        after: "https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=800&auto=format&fit=crop",
+        image: "/images/results/Body Contouring.png",
         result: "Toned muscle, reduced fat",
     },
     {
         title: "IV Radiance",
         treatmentType: "IV Therapy",
-        before: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
-        after: "https://images.unsplash.com/photo-1498757581981-8ddb3c0b9b07?q=80&w=800&auto=format&fit=crop",
+        image: "/images/results/IV Radiance.png",
         result: "Glowing skin, renewed energy",
     },
 ];
@@ -114,43 +108,16 @@ export function ResultsGallery() {
                             data-gallery-card
                             className="glass-card group overflow-hidden rounded-3xl"
                         >
-                            <div className="grid grid-cols-2">
-                                <div className="relative overflow-hidden">
-                                    <div
-                                        className="h-48 w-full transition-transform duration-700 group-hover:scale-105"
-                                        style={{
-                                            backgroundImage: `url(${item.before}), url('/before-placeholder.svg')`,
-                                            backgroundSize: "cover, cover",
-                                            backgroundPosition: "center top, center",
-                                            backgroundColor: "#1b1b28",
-                                            filter: "brightness(0.75) saturate(0.8)",
-                                        }}
-                                    />
-                                    <div
-                                        className="absolute bottom-2 left-2 rounded-full px-2 py-0.5 text-[0.55rem] font-bold uppercase tracking-[0.15em]"
-                                        style={{ background: "rgba(7,7,11,0.8)", color: "var(--text-muted)" }}
-                                    >
-                                        Before
-                                    </div>
-                                </div>
-                                <div className="relative overflow-hidden">
-                                    <div
-                                        className="h-48 w-full transition-transform duration-700 group-hover:scale-105"
-                                        style={{
-                                            backgroundImage: `url(${item.after}), url('/after-placeholder.svg')`,
-                                            backgroundSize: "cover, cover",
-                                            backgroundPosition: "center top, center",
-                                            backgroundColor: "#211b14",
-                                            filter: "brightness(0.85)",
-                                        }}
-                                    />
-                                    <div
-                                        className="absolute bottom-2 right-2 rounded-full px-2 py-0.5 text-[0.55rem] font-bold uppercase tracking-[0.15em]"
-                                        style={{ background: "rgba(201,169,110,0.85)", color: "#07070b" }}
-                                    >
-                                        After
-                                    </div>
-                                </div>
+                            <div className="relative overflow-hidden">
+                                <div
+                                    className="h-56 w-full transition-transform duration-700 group-hover:scale-105"
+                                    style={{
+                                        backgroundImage: `url('${item.image}')`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        backgroundColor: "#1b1b28",
+                                    }}
+                                />
                             </div>
 
                             <div className="p-5">

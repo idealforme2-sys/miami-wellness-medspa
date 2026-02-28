@@ -5,26 +5,31 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ServiceCategory, ServiceItem } from "@/types/site";
 import { trackBookingStart, trackCtaClick } from "@/lib/analytics";
+import {
+    detailedTreatmentMenu,
+    DetailedTreatmentService,
+    VAGARO_SERVICES_URL,
+} from "@/lib/detailed-treatment-menu";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Background images per category
 const CATEGORY_IMAGES: Record<string, string> = {
-    "face": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1600&auto=format&fit=crop",
-    "body-sculpting": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1600&auto=format&fit=crop",
-    "advanced-devices": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1600&auto=format&fit=crop",
+    "face": "/images/services/face_treatment.png",
+    "body-sculpting": "/images/services/body_sculpting.png",
+    "advanced-devices": "/images/services/advanced_devices.png",
 };
 
 // Per-service card background images
 const SERVICE_IMAGES: Record<string, string> = {
-    "signature-glow-facial": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=800&auto=format&fit=crop",
-    "injectables-consultation": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=800&auto=format&fit=crop",
-    "hydrafacial": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=800&auto=format&fit=crop",
-    "chemical-peel": "https://images.unsplash.com/photo-1498757581981-8ddb3c0b9b07?q=80&w=800&auto=format&fit=crop",
-    "body-contouring": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop",
-    "kybella": "https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=800&auto=format&fit=crop",
-    "laser": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
-    "default": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800&auto=format&fit=crop",
+    "signature-glow-facial": "/images/services/face_treatment.png",
+    "injectables-consultation": "/images/services/face_treatment.png",
+    "hydrafacial": "/images/services/face_treatment.png",
+    "chemical-peel": "/images/services/face_treatment.png",
+    "body-contouring": "/images/services/body_sculpting.png",
+    "kybella": "/images/services/body_sculpting.png",
+    "laser": "/images/services/advanced_devices.png",
+    "default": "/images/services/face_treatment.png",
 };
 
 function getServiceImage(slug: string): string {
@@ -39,9 +44,14 @@ interface TreatmentsSectionProps {
     services: ServiceItem[];
 }
 
+function toAnalyticsSlug(value: string): string {
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export function TreatmentsSection({ categories, services }: TreatmentsSectionProps) {
     const sectionRef = useRef<HTMLElement>(null);
     const [activeCategory, setActiveCategory] = useState(categories[0]?.slug || "");
+    const [activeDetailedCategory, setActiveDetailedCategory] = useState(detailedTreatmentMenu[0]?.slug || "");
 
     const sortedCategories = useMemo(
         () => [...categories].sort((a, b) => a.order - b.order),
@@ -94,11 +104,15 @@ export function TreatmentsSection({ categories, services }: TreatmentsSectionPro
     }, [activeCategory]);
 
     const activeCatImage = CATEGORY_IMAGES[activeCategory] || CATEGORY_IMAGES["face"];
+    const activeDetailedMenu = useMemo(
+        () => detailedTreatmentMenu.find((group) => group.slug === activeDetailedCategory) || detailedTreatmentMenu[0],
+        [activeDetailedCategory]
+    );
 
     return (
         <section
             ref={sectionRef}
-            id="services"
+            id="treatments"
             className="anchor-offset relative overflow-hidden"
             style={{ padding: "var(--section-padding) 0" }}
         >
@@ -159,10 +173,77 @@ export function TreatmentsSection({ categories, services }: TreatmentsSectionPro
                 </div>
 
                 {/* Service Cards Grid */}
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <div
+                    className="grid justify-center gap-6"
+                    style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 390px))" }}
+                >
                     {filteredServices.map((service) => (
                         <ServiceCard key={service.slug} service={service} />
                     ))}
+                </div>
+
+                {/* Expanded treatment menu requested by client */}
+                <div className="mt-16 border-t pt-16" style={{ borderColor: "rgba(201,169,110,0.14)" }}>
+                    <div className="mx-auto max-w-3xl text-center">
+                        <p className="eyebrow mb-4 justify-center">Complete Service Catalog</p>
+                        <h3 className="font-display text-3xl font-light md:text-4xl" style={{ color: "var(--text-primary)" }}>
+                            Explore Every <span className="text-gradient-gold">Available Treatment</span>
+                        </h3>
+                        <p className="section-subtitle mx-auto mt-4 text-center">
+                            Browse by category and book directly through Vagaro.
+                        </p>
+                    </div>
+
+                    <div className="mt-8 flex flex-wrap justify-center gap-2">
+                        {detailedTreatmentMenu.map((group) => (
+                            <button
+                                key={group.slug}
+                                type="button"
+                                onClick={() => setActiveDetailedCategory(group.slug)}
+                                className="rounded-full px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.12em] transition-colors"
+                                style={{
+                                    border:
+                                        activeDetailedCategory === group.slug
+                                            ? "1px solid rgba(201,169,110,0.34)"
+                                            : "1px solid rgba(255,255,255,0.08)",
+                                    background:
+                                        activeDetailedCategory === group.slug
+                                            ? "rgba(201,169,110,0.14)"
+                                            : "rgba(7,7,11,0.35)",
+                                    color:
+                                        activeDetailedCategory === group.slug
+                                            ? "var(--gold-300)"
+                                            : "var(--text-secondary)",
+                                }}
+                            >
+                                {group.title}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div
+                        className="mx-auto mt-8 max-w-6xl rounded-3xl p-6 md:p-8"
+                        style={{
+                            background: "rgba(255,255,255,0.02)",
+                            border: "1px solid rgba(201,169,110,0.14)",
+                        }}
+                    >
+                        <p className="text-center text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                            {activeDetailedMenu.intro}
+                        </p>
+                        <div
+                            className="mt-8 grid justify-center gap-5"
+                            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 330px), 380px))" }}
+                        >
+                            {activeDetailedMenu.services.map((service) => (
+                                <DetailedServiceCard
+                                    key={`${activeDetailedMenu.slug}-${service.name}`}
+                                    service={service}
+                                    categorySlug={activeDetailedMenu.slug}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -199,7 +280,7 @@ function ServiceCard({ service }: { service: ServiceItem }) {
         <div
             ref={cardRef}
             data-treat-card
-            className="glass-card group relative flex flex-col overflow-hidden rounded-2xl"
+            className="glass-card group relative flex w-full max-w-[390px] flex-col overflow-hidden rounded-2xl"
             style={{ transformStyle: "preserve-3d", minHeight: "420px" }}
         >
             {/* Card background image */}
@@ -294,5 +375,73 @@ function ServiceCard({ service }: { service: ServiceItem }) {
                 </div>
             </div>
         </div>
+    );
+}
+
+function DetailedServiceCard({
+    service,
+    categorySlug,
+}: {
+    service: DetailedTreatmentService;
+    categorySlug: string;
+}) {
+    const serviceSlug = toAnalyticsSlug(service.name);
+
+    return (
+        <article
+            className="glass-card flex h-full w-full max-w-[380px] flex-col justify-between rounded-2xl p-5"
+            style={{ borderColor: "rgba(201,169,110,0.15)" }}
+        >
+            <div>
+                <h4 className="font-display text-xl font-light leading-tight" style={{ color: "var(--text-primary)" }}>
+                    {service.name}
+                </h4>
+                {service.duration && (
+                    <p className="mt-1 text-xs uppercase tracking-[0.12em]" style={{ color: "var(--gold-400)" }}>
+                        {service.duration}
+                    </p>
+                )}
+
+                <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                    {service.description}
+                </p>
+
+                {service.financingNote && (
+                    <p className="mt-3 text-[0.68rem] uppercase tracking-[0.1em]" style={{ color: "var(--text-muted)" }}>
+                        {service.financingNote}
+                    </p>
+                )}
+
+                {service.highlights && service.highlights.length > 0 && (
+                    <ul className="mt-4 space-y-1.5">
+                        {service.highlights.map((line) => (
+                            <li key={line} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--gold-400)" }} />
+                                {line}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+
+            <div className="mt-6 flex items-center justify-between gap-3">
+                <p className="font-semibold" style={{ color: "var(--gold-300)" }}>
+                    {service.price || "Consult required"}
+                </p>
+                <a
+                    href={VAGARO_SERVICES_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline px-4 py-2 text-[0.6rem]!"
+                    onClick={() => {
+                        const location = `detailed_service_${categorySlug}_${serviceSlug}`;
+                        trackCtaClick({ location, ctaType: "booking", serviceContext: categorySlug });
+                        trackBookingStart({ entryPoint: location, serviceContext: categorySlug });
+                    }}
+                >
+                    Book Now
+                </a>
+            </div>
+        </article>
     );
 }
