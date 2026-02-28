@@ -22,8 +22,15 @@ const CATEGORY_IMAGES: Record<string, string> = {
 
 // Per-service card background images
 const SERVICE_IMAGES: Record<string, string> = {
-    "signature-glow-facial": "/images/services/face_treatment.png",
-    "injectables-consultation": "/images/services/face_treatment.png",
+    // Unique service images
+    "signature-glow-facial": "/images/services/signature_glow_facial.png",
+    "injectables-consultation": "/images/services/injectables_consultation.png",
+    "fat-dissolve-program": "/images/services/fat_dissolve_program.png",
+    "body-contouring-consultation": "/images/services/body_contouring_consultation.png",
+    "device-based-skin-tightening": "/images/services/device_based_skin_tightening.png",
+    "microneedling-refresh": "/images/services/microneedling_refresh.png",
+
+    // Fallbacks
     "hydrafacial": "/images/services/face_treatment.png",
     "chemical-peel": "/images/services/face_treatment.png",
     "body-contouring": "/images/services/body_sculpting.png",
