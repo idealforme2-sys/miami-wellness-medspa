@@ -14,6 +14,7 @@ export const sitePayloadQuery = groq`{
     mapEmbedUrl,
     mapUrl,
     instagramUrl,
+    facebookUrl,
     googleReviewsUrl,
     classpassUrl,
     vagaroUrl,

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { SiteSettings } from "@/types/site";
+import { Announcement, SiteSettings } from "@/types/site";
 import { trackBookingStart, trackCallClick, trackCtaClick } from "@/lib/analytics";
 
 const sectionLinks = [
@@ -16,12 +16,22 @@ const sectionLinks = [
 
 interface NavbarProps {
     settings: SiteSettings;
+    announcement?: Announcement;
 }
 
-export function Navbar({ settings }: NavbarProps) {
+const FALLBACK_ANNOUNCEMENT: Announcement = {
+    message: "Now accepting new clients in Miami. Same-week consultations available.",
+    label: "Reserve Spot",
+    href: "#book",
+    active: true,
+    order: 0,
+};
+
+export function Navbar({ settings, announcement }: NavbarProps) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const mobileMenuRef = useRef<HTMLDivElement>(null);
+    const activeAnnouncement = announcement?.active ? announcement : FALLBACK_ANNOUNCEMENT;
 
     useEffect(() => {
         const onScroll = () => setIsScrolled(window.scrollY > 80);
@@ -59,6 +69,36 @@ export function Navbar({ settings }: NavbarProps) {
                 borderBottom: navBorder,
             }}
         >
+            <div
+                className="px-4 py-2 text-center text-[0.62rem] font-semibold uppercase tracking-[0.14em] sm:text-[0.66rem]"
+                style={{
+                    background: "linear-gradient(90deg, rgba(201,169,110,0.16), rgba(7,7,11,0.9), rgba(201,169,110,0.16))",
+                    borderBottom: "1px solid rgba(201,169,110,0.14)",
+                    color: "var(--gold-300)",
+                }}
+            >
+                <span>{activeAnnouncement.message}</span>
+                {activeAnnouncement.href && activeAnnouncement.label && (
+                    <a
+                        href={activeAnnouncement.href}
+                        className="ml-3 inline-flex items-center rounded-full px-3 py-1 text-[0.56rem] uppercase tracking-[0.14em]"
+                        style={{
+                            border: "1px solid rgba(201,169,110,0.25)",
+                            color: "var(--gold-200)",
+                        }}
+                        onClick={() => {
+                            trackCtaClick({
+                                location: "announcement_bar",
+                                ctaType: "booking",
+                                serviceContext: "general",
+                            });
+                        }}
+                    >
+                        {activeAnnouncement.label}
+                    </a>
+                )}
+            </div>
+
             <div className="mx-auto flex max-w-[1380px] items-center justify-between px-6 py-5 md:px-10">
                 {/* Logo */}
                 <a href="#top" className="group shrink-0" aria-label="Miami Wellness Medspa home">

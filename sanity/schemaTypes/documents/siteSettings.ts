@@ -17,6 +17,7 @@ export const siteSettingsType = defineType({
     defineField({ name: "mapEmbedUrl", type: "url", validation: (rule) => rule.required() }),
     defineField({ name: "mapUrl", type: "url", validation: (rule) => rule.required() }),
     defineField({ name: "instagramUrl", type: "url", validation: (rule) => rule.required() }),
+    defineField({ name: "facebookUrl", type: "url" }),
     defineField({ name: "googleReviewsUrl", type: "url", validation: (rule) => rule.required() }),
     defineField({ name: "classpassUrl", type: "url", validation: (rule) => rule.required() }),
     defineField({ name: "vagaroUrl", type: "url", validation: (rule) => rule.required() }),

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1d1a14"/>
+      <stop offset="55%" stop-color="#34302a"/>
+      <stop offset="100%" stop-color="#6f5a30"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(700 180) rotate(132) scale(360 300)">
+      <stop offset="0%" stop-color="#E8D09E" stop-opacity="0.68"/>
+      <stop offset="100%" stop-color="#E8D09E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#bg)"/>
+  <rect width="960" height="720" fill="url(#glow)"/>
+  <ellipse cx="420" cy="300" rx="180" ry="210" fill="#8A744A" fill-opacity="0.55"/>
+  <ellipse cx="420" cy="560" rx="280" ry="170" fill="#6A5530" fill-opacity="0.58"/>
+  <path d="M120 140C220 120 270 170 330 210C390 250 430 250 480 220C530 190 600 120 760 140" stroke="#D4AF37" stroke-opacity="0.5" stroke-width="4"/>
+  <path d="M120 580C230 520 340 540 420 580C500 620 640 640 820 590" stroke="#F5E6C8" stroke-opacity="0.35" stroke-width="3"/>
+  <circle cx="760" cy="120" r="6" fill="#F5E6C8" fill-opacity="0.75"/>
+  <circle cx="780" cy="145" r="3" fill="#F5E6C8" fill-opacity="0.6"/>
+  <text x="710" y="670" fill="#F5E6C8" fill-opacity="0.8" font-family="Arial, sans-serif" font-size="34" letter-spacing="8">CONSULT</text>
+</svg>

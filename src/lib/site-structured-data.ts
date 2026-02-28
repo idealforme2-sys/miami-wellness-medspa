@@ -20,7 +20,12 @@ export function buildLocalBusinessJsonLd(content: SiteContent) {
     url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.miamiwellnessmedspa.com",
     image: [],
     priceRange: "$$",
-    sameAs: [settings.instagramUrl, settings.classpassUrl, settings.googleReviewsUrl],
+    sameAs: [
+      settings.instagramUrl,
+      settings.facebookUrl,
+      settings.classpassUrl,
+      settings.googleReviewsUrl,
+    ].filter(Boolean),
     hasMap: settings.mapUrl,
     potentialAction: {
       "@type": "ReserveAction",

@@ -15,6 +15,7 @@ import { BookingSection } from "./BookingSection";
 import { FAQSection } from "./FAQSection";
 import { ContactSection } from "./ContactSection";
 import { Footer } from "./Footer";
+import { NewsletterOverlay } from "./NewsletterOverlay";
 import { SiteContent } from "@/types/site";
 
 interface HomePageProps {
@@ -41,37 +42,11 @@ export function HomePage({ content }: HomePageProps) {
     <>
       <CustomCursor />
       <Preloader />
-      <Navbar settings={content.siteSettings} />
+      <Navbar settings={content.siteSettings} announcement={announcements[0]} />
 
       <main className="relative overflow-x-clip">
         {/* Hero — full bleed, no announcement bar overlap */}
         <HeroSection hero={content.heroBlock} settings={content.siteSettings} />
-
-        {/* Announcement (scrolls naturally, not fixed) */}
-        {announcements.length > 0 && (
-          <div
-            className="w-full px-4 py-3 text-center text-xs font-medium tracking-[0.14em]"
-            style={{
-              background: "linear-gradient(90deg, rgba(201,169,110,0.07), rgba(7,7,11,0.97), rgba(201,169,110,0.07))",
-              borderBottom: "1px solid rgba(201,169,110,0.08)",
-              color: "var(--gold-400)",
-            }}
-          >
-            {announcements[0].message}
-            {announcements[0].href && announcements[0].label && (
-              <a
-                href={announcements[0].href}
-                className="ml-3 inline-flex items-center rounded-full px-3 py-0.5 text-[0.6rem] uppercase tracking-[0.14em] transition-colors hover:text-gold-300"
-                style={{
-                  border: "1px solid rgba(201,169,110,0.2)",
-                  color: "var(--gold-300)",
-                }}
-              >
-                {announcements[0].label}
-              </a>
-            )}
-          </div>
-        )}
 
         <MarqueeStrip />
         <CuratedOfferingsSection />
@@ -89,6 +64,7 @@ export function HomePage({ content }: HomePageProps) {
       </main>
 
       <Footer settings={content.siteSettings} />
+      <NewsletterOverlay />
 
       {/* Mobile Sticky Bar */}
       <div

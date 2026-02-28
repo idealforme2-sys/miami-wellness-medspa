@@ -26,6 +26,7 @@ export interface SiteSettings {
   mapEmbedUrl: string;
   mapUrl: string;
   instagramUrl: string;
+  facebookUrl?: string;
   googleReviewsUrl: string;
   classpassUrl: string;
   vagaroUrl: string;

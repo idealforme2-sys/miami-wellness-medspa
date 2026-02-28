@@ -15,24 +15,28 @@ export const defaultSiteContent: SiteContent = {
     mapUrl:
       "https://www.google.com/maps/place/Miami+Wellness+Medspa/data=!4m2!3m1!1s0x88d9c765c54d996d:0x7709e20532400a37?sa=X&ved=1t:242&ictx=111",
     instagramUrl: "https://www.instagram.com/miamiwellnessmedspa/",
+    facebookUrl:
+      "https://web.facebook.com/people/MIAMI-Wellness-MedSpa/100091332498347/",
     googleReviewsUrl:
       "https://www.google.com/maps/place/Miami+Wellness+Medspa/data=!4m2!3m1!1s0x88d9c765c54d996d:0x7709e20532400a37?sa=X&ved=1t:242&ictx=111",
     classpassUrl: "https://classpass.com/studios/miami-wellness-medspa",
     vagaroUrl: "https://www.vagaro.com/miamiwellnessmedspa",
     hours: [
-      { day: "Monday", hours: "9:00 AM - 6:00 PM" },
-      { day: "Tuesday", hours: "9:00 AM - 6:00 PM" },
-      { day: "Wednesday", hours: "9:00 AM - 6:00 PM" },
-      { day: "Thursday", hours: "9:00 AM - 6:00 PM" },
-      { day: "Friday", hours: "9:00 AM - 6:00 PM" },
-      { day: "Saturday", hours: "By appointment" },
       { day: "Sunday", hours: "Closed" },
+      { day: "Monday", hours: "11:00 AM - 6:30 PM" },
+      { day: "Tuesday", hours: "11:00 AM - 6:30 PM" },
+      { day: "Wednesday", hours: "11:00 AM - 6:30 PM" },
+      { day: "Thursday", hours: "10:00 AM - 5:00 PM" },
+      { day: "Friday", hours: "10:00 AM - 5:00 PM" },
+      { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
     ],
     disclaimer:
       "All treatments require clinical consultation to confirm candidacy, pricing, and expected outcomes.",
     booking: {
       embedCode: process.env.NEXT_PUBLIC_VAGARO_EMBED_CODE,
-      fallbackUrl: process.env.NEXT_PUBLIC_VAGARO_BOOKING_URL || "https://www.vagaro.com/miamiwellnessmedspa",
+      fallbackUrl:
+        process.env.NEXT_PUBLIC_VAGARO_BOOKING_URL ||
+        "https://www.vagaro.com/miamiwellnessmedspa/services",
       iframeUrl:
         process.env.NEXT_PUBLIC_VAGARO_IFRAME_URL ||
         "https://www.vagaro.com/booking/miamiwellnessmedspa",
@@ -199,7 +203,7 @@ export const defaultSiteContent: SiteContent = {
     {
       question: "How do I book an appointment?",
       answer:
-        "Use the in-page booking widget or tap Book Now to open Vagaro in a new tab. You can also call us directly for assistance.",
+        "Use the Schedule Consultation button to open our Vagaro services page in a new tab, or call us directly for assistance.",
       order: 3,
     },
     {
